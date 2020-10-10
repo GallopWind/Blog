@@ -45,7 +45,7 @@ $$
 
 ### 梯度消失, 爆炸
 
-在DNN中, 由于Sigmoid激活函数的导数处于0~1, 在底层会变得极小. 在RNN中, 记忆机制导致的梯度爆炸问题.
+在DNN中, 由于Sigmoid激活函数的导数处于0~1, 在底层会变得极小. 当初始化权重较大时, 又会在训练早期导致梯度爆炸.
 
 #### Xavier和He初始化
 
@@ -146,7 +146,7 @@ $$
 
 *个人更赞成这是一种""浅随机, 深训练""的集成学习, 解决了集成学习无法作用于DNN问题*
 
-#### 最大范数正则化
+#### 最大范数正则化 
 
 剪裁法, 每次训练结束后对神经元的输入连接权重进行 $w\leftarrow w\frac{r}{||w||_2}, r最大范数超参数$ 的权重剪裁. 该正则化并不加入成本函数中.
 
@@ -155,12 +155,33 @@ $$
 泛化训练样本. 如针对图片, 平移循环对称, 修改背景等.
 
 # CNN
+## CNN
 
-
+## ResNet
 
 # RNN
+## RNN
 
+<img src="https://github.com/wanderinwind/blog/raw/master/img/DL/RNN.jpg" style="zoom:67%;" />
+$$
+h_t = tanh(W \cdot h_{t-1}+U \cdot X + b) \quad 也可使用其他激活函数如ReLU \\
+Y = V \cdot h_t + b
+$$
+RNN的输入与输出均为时序序列输入输出.一方面其本身可作为一个神经单元, 能够根据输入和记忆进行非线性映射, 另一方面其能够保存记忆信息, 能够根据输入对记忆进行修改. 由于其非线性映射能力有限, 因此实际使用时会在输入和输出添加网络来对信息进行映射, 或者使用深层RNN.
 
+<img src="https://github.com/wanderinwind/blog/raw/master/img/DL/RNN_use.jpg" style="zoom:60%;" />
 
-# LSTM
+单层RNN的用法. 一: 用于数据实时预测, 输入一个新数据, 给出一个新预测. 二: 序列数据综合输出, 比如输入一段时间数据给出综合评价. 三: 不常用. 四: 延迟的序列到序列输出, 又称编码解码器.
+
+RNN的训练原理为梯度下降, 即根据时间序列展开成DNN训练. 有时为了避免过深, 仅展开有限时间序列, 又称时间截断反向传播. 
+
+*由于长时记忆不佳, 多采用LSTM与GRU*
+
+## LSTM
+
+<img src="https://github.com/wanderinwind/blog/raw/master/img/DL/LSTM.jpg" style="zoom:60%;" />
+
+## GRU
+
+<img src="https://github.com/wanderinwind/blog/raw/master/img/DL/GRU.jpg" style="zoom:50%;" />
 
